@@ -268,7 +268,7 @@ return value via callback
 const getMoroSpeciesName = (cb:(name:string)=>void)=>{
     return fetch(people_url)
         .then(x=>x.json())
-        .then((x:Organisms[])=> promiseOf(x.find(x=>x.name==='Moro1')))
+        .then((x:Organisms[])=> promiseOf(x.find(x=>x.name==='Moro')))
         .then((x:Organisms)=>fetch(x.species))
         .then(x=>x.json())
         .then((x:Species)=>cb(x.name))
@@ -284,13 +284,15 @@ Return promise instead of callback
 const getMoroSpeciesName = ()=>{
     return fetch(people_url)
         .then(x=>x.json())
-        .then((x:Organisms[])=> promiseOf(x.find(x=>x.name==='Moro1')))
+        .then((x:Organisms[])=> promiseOf(x.find(x=>x.name==='Moro')))
         .then((x:Organisms)=>fetch(x.species))
         .then(x=>x.json())
         .then((x:Species)=>x.name)
 }
 
-getMoroSpeciesName().then(x=>trace(x)).catch(e=>trace(e))
+getMoroSpeciesName()
+    .then(x=>trace(x))
+    .catch(e=>trace(e))
 ```
 
 ---
@@ -300,7 +302,7 @@ Callbacks are not interchangeable with Promises. This means that callback-based 
 How to wrap callback-based API with promised?
 
 ```typescript
-const myFetch = (url:string) =>{
+const fetchJson = (url:string) =>{
     return new Promise<any>((resolve,reject)=>{
         request(url,(error, response, body)=>{
             if(error) reject(error)
