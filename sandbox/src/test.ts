@@ -1,8 +1,16 @@
-function buildName(firstName:string) {
-    var restOfName = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        restOfName[_i - 1] = arguments[_i];
+let deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    cards: Array(52),
+    createCardPicker: function() {
+        return () => {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickedSuit = Math.floor(pickedCard / 13);
+            return {suit: this.suits[pickedSuit], card: pickedCard % 13};
+        }
     }
-    return firstName + " " + restOfName.join(" ");
 }
-var buildNameFun = buildName;
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+
+console.log("card: " + pickedCard.card + " of " + pickedCard.suit);

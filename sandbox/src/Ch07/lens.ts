@@ -13,9 +13,6 @@ export class Lens<S, T>{
             ( u: U,s: S):S => st.set(tu.set(u,st.get(s)),s)
         )
     }
-    map(f:(t:T)=>T,s:S):S{
-        return this.set(f(this.get(s)),s)
-    }
 }
 // const addressCityL = new Lens<Address,string>(
 //     (s: Address):string => s.city,
@@ -42,21 +39,14 @@ const addressStreetL = lens<Address, "street">("street")
 const streetNameL = lens<Street, "name">("name")
 
 //Address.city =''
-const newCity= addressCityL.set('new city',company.address)
-trace(newCity)
+trace(addressCityL.set('new city',company.address))
+trace(addressCityL.get(company.address))
 // company.address.city = "new city"
 
 //company.address.street.name = "new name"
-const newCompany = companyAddressL
+trace(companyAddressL
     .compose(addressStreetL)
     .compose(streetNameL)
-    .set('new name',company)
-trace(newCompany)
+    .set('new name',company))
+trace(company)
 
-//map
-const upperStreet = companyAddressL
-   .compose(addressStreetL)
-   .compose(streetNameL)
-   .map(x=>x.toUpperCase(),company)
-
-trace(upperStreet)
