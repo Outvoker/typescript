@@ -1,15 +1,11 @@
-class chessBoard1{
-    size:number
-    board:Array<Array<number>>
-    constructor(size:number){
-        this.size = size
-        this.board = new Array<Array<number>>()
-        this.board.length = this.size
-        let row = new Array<number>()
-        row.length = this.size
-        row.fill(0,0,this.size)
-        this.board.fill(row,0,this.size)
+function *range(a: number, b?: number, step: number = 1) {
+    if(b == undefined) {
+      [a, b] = [0, a]
     }
-}
-const test = new chessBoard1(8)
-console.log(test.board)
+    for(let i = a; i < b; i += step) {
+      yield i
+    }
+  }
+  
+  const len = 10
+  console.log(Array.from(range(0, len)).map(n => n.toString()))

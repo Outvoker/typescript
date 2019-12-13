@@ -1,3 +1,4 @@
+"use strict";
 var __generator = (this && this.__generator) || function (thisArg, body) {
     var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
     return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
@@ -25,6 +26,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+exports.__esModule = true;
+var mapnum2str_1 = require("./mapnum2str");
 function range(a, b, step) {
     var i;
     var _a;
@@ -50,5 +53,12 @@ function range(a, b, step) {
         }
     });
 }
-var len = 10;
-console.log(Array.from(range(0, len)).map(function (n) { return n.toString(); }));
+function stringfyChessBoard(board) {
+    var result = new Array();
+    result.push(['\u0020'].concat(Array.from(range(0, board.length)).map(function (n) { return n.toString(); })).join('\u0020'));
+    board.forEach(function (value, index) {
+        result.push(["" + index].concat(value.map(mapnum2str_1.mapNum2Str)).join('\u0020'));
+    });
+    return result.join('\n');
+}
+exports.stringfyChessBoard = stringfyChessBoard;
